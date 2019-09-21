@@ -98,14 +98,123 @@
         }, false)
         this.iframeBody.addEventListener('keydown', this.keydownHandler, false)
         this.iframeBody.addEventListener('keyup', this.keyupHandler, false)
+        this.iframeBody.addEventListener('paste', this.pasteHandler, false)
         this.selectionChange()
       },
 
       keydownHandler (event) {
+        //ctrl z, y, v
+        // if (event.ctrlKey && (event.keyCode === 89 || event.keyCode === 90 || event.keyCode == 86)) {
         if (event.ctrlKey && (event.keyCode === 89 || event.keyCode === 90)) {
+
           event.preventDefault()
+          console.log("ctrl event handle!\n")
           event.keyCode === 89 && this.callMethod({name: 'redo'})
           event.keyCode === 90 && this.callMethod({name: 'undo'})
+
+          // if (event.keyCode == 86) 
+          if (0)
+          {
+            navigator.clipboard.read().then(
+              clipboardData => 
+              { 
+                console.log("items", clipboardData.items)
+                // document.querySelector(".editor").innerText += clipText
+                for (let idx = 0; idx < clipboardData.length; idx++)
+                {
+                  console.log(clipboardData[idx])
+                  if (clipboardData[idx].types.indexOf("image/png") != -1)
+                  {
+                    console.log("image png")
+
+                    {
+                      file = clipboardData[idx].getAsFile()
+                        let reader = new FileReader();
+                        reader.onload = function(e){
+                            let img = document.createElement('img');
+                            img.src = e.target.result;
+                            
+                            // var range = window.getSelection().getRangeAt(0);
+                            // range.deleteContents();
+                            // range.insertNode(img);
+                            this.iframeBody.innerHTML = img.outerHTML
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                    // clipboardData[idx].getType("image/png").then(imageBlob => {
+                    //   console.log(imageBlob);
+                    //   let reader = new FileReader();
+                    //   reader.readAsArrayBuffer(imageBlob);
+
+                    //   reader.onloadend =  {
+                    //     var base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(reader.result)));
+                    //     this.iframeBody.innerHTML += "<img src=data:image/png;base64," + base64String + "\>"
+                    //   }
+                    // })
+                    
+                  }
+                  else if(clipboardData[idx].types.indexOf("text/plain") != -1)
+                  {
+                    console.log("text plain")
+                    clipboardData[idx].getType("text/plain").then(textBlob => {
+                      (new Response(textBlob)).text().then(text => {
+                        this.iframeBody.innerHTML += text;
+                      });
+                    })
+                  }
+                }
+              }
+            );
+            
+          }
+        
+        }
+      },
+
+      pasteHandler (event)
+      {
+        console.log(event)
+        let clipboardData = event.clipboardData.items
+        { 
+          console.log("items", clipboardData.items)
+          // document.querySelector(".editor").innerText += clipText
+          for (let idx = 0; idx < clipboardData.length; idx++)
+          {
+            console.log(clipboardData[idx])
+            // if (clipboardData[idx].types.indexOf("image/png") != -1)
+            if(1)
+            {
+              console.log("image png")
+
+              {
+                let file = clipboardData[idx].getAsFile()
+                  var reader = new FileReader();
+                  reader.onload = (e) => {
+                      var img = document.createElement('img');
+                      img.src = e.target.result;
+                      
+                      // var range = window.getSelection().getRangeAt(0);
+                      // range.deleteContents();
+                      // range.insertNode(img);
+                      console.log("this", this)
+                      this.iframeBody.innerHTML = img.outerHTML
+                  };
+                  reader.readAsDataURL(file);
+              }
+              // clipboardData[idx].getType("image/png").then(imageBlob => {
+              //   console.log(imageBlob);
+              //   let reader = new FileReader();
+              //   reader.readAsArrayBuffer(imageBlob);
+
+              //   reader.onloadend =  {
+              //     var base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(reader.result)));
+              //     this.iframeBody.innerHTML += "<img src=data:image/png;base64," + base64String + "\>"
+              //   }
+              // })
+              
+            }
+            
+          }
         }
       },
 
@@ -154,6 +263,7 @@
           }
           this.iframeDoc.execCommand(name, false, value)
           // todo 当没有选择内容时，点击加粗等按钮还是会失去焦点
+          // (번역기) todo 선택한 내용이 없으면 굵은 체와 같은 버튼을 클릭하면 초점이 없어집니다.
         }
         this.updateContent(this.iframeBody.innerHTML)
       },
