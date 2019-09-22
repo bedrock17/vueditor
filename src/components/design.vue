@@ -115,24 +115,35 @@
 
       pasteHandler (event)
       {
+        
         // https://gist.github.com/dusanmarsa/2ca9f1df36e14864328a2bb0b353332e
         let IMAGE_MIME_REGEX = /^image\/(p?jpeg|gif|png)$/i;
+        let TEXT_MIME_REGEX = /^text\/(p?html)$/i;
         let clipboardData = event.clipboardData.items
-        { 
-          console.log("items", clipboardData.items)
+        {
           for (let idx = 0; idx < clipboardData.length; idx++)
           {
+            // todo : 다른 형태의 데이터에 대해서 처리
+            // if (TEXT_MIME_REGEX.test(clipboardData[idx].type))
+            // {
+            //   clipboardData[idx].getAsString(
+                
+            //   )
+            // }
+            // else 
             if (IMAGE_MIME_REGEX.test(clipboardData[idx].type))
             {
-              console.log(clipboardData[idx].type)
-              {
+              event.preventDefault() //clipboard이미지 복사는 이곳에서만 처리되도록 한다.
+
+              // console.log(clipboardData[idx].type)
+              { 
                 let file = clipboardData[idx].getAsFile()
                   var reader = new FileReader();
                   reader.onload = (e) => {
                       var img = document.createElement('img');
                       img.src = e.target.result;
                       
-                      this.iframeBody.innerHTML = img.outerHTML
+                      this.iframeBody.innerHTML += img.outerHTML
                   };
                   reader.readAsDataURL(file);
               }
