@@ -67,7 +67,7 @@
         }
         this.iframeDoc.designMode = 'on'
         this.iframeBody.spellcheck = getConfig('spellcheck')
-        this.iframeBody.style.cssText = 'overflow-x: hidden;'
+        this.iframeBody.style.cssText = 'overflow-x: hidden; margin: 0' //iframe body
         this.iframeDoc.head.insertAdjacentHTML('beforeEnd', '<style>pre {margin: 0; padding: 0.5rem; background: #f5f2f0;}</style>')
         this.addEvent()
       },
@@ -138,9 +138,9 @@
               // console.log(clipboardData[idx].type)
               { 
                 let file = clipboardData[idx].getAsFile()
-                  var reader = new FileReader();
+                  let reader = new FileReader();
                   reader.onload = (e) => {
-                      var img = document.createElement('img');
+                      let img = document.createElement('img');
                       img.src = e.target.result;
                       
                       this.iframeBody.innerHTML += img.outerHTML
