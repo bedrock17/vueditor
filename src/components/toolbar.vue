@@ -62,31 +62,33 @@
 </style>
 
 <template>
-  <div class="ve-toolbar" ref="toolbar">
+<div class="ve-toolbar" ref="toolbar">
     <template v-for="item in config">
-      <div v-if="item in btns" 
-        @click.stop.prevent="btnHandler($event, item)" 
-        :title="lang[item].title"
-        :class="{
-            've-active': states[item].status == 'actived',
-            've-disabled': states[item].status == 'disabled',
-            've-desktop' : btns[item].mobileDisplay == false
-            }" 
-        unselectable="on">
-        <i :class="[btns[item].className]"></i>
-      </div>
-      <div v-if="item in selects" 
-        @click.stop.prevent="selectHandler($event, item)" 
-        :class="[{'ve-disabled': states[item].status == 'disabled'},
-            selects[item].className,
-            've-select']" 
-        unselectable="on">
-        <span>{{states[item].value}}</span><i :class="{'ve-triangle-down': !states[item].display, 've-triangle-up': states[item].display}"></i>
-      </div>
-      <div class="ve-divider" v-if="item == 'divider' || item == '|'"></div>
+        <div v-if="item in btns" 
+            @click.stop.prevent="btnHandler($event, item)" 
+            :id="btns[item].btnId"
+            :title="lang[item].title"
+            :class="{
+                've-active': states[item].status == 'actived',
+                've-disabled': states[item].status == 'disabled',
+                've-desktop' : btns[item].mobileDisplay == false
+                }" 
+            unselectable="on">
+            <i :class="[btns[item].className]"></i>
+        </div>
+            <div v-if="item in selects" 
+            @click.stop.prevent="selectHandler($event, item)" 
+            :id="selects[item].btnId"
+            :class="[{'ve-disabled': states[item].status == 'disabled'},
+                selects[item].className,
+                've-select']" 
+            unselectable="on">
+            <span>{{states[item].value}}</span><i :class="{'ve-triangle-down': !states[item].display, 've-triangle-up': states[item].display}"></i>
+        </div>
+        <div class="ve-divider" v-if="item == 'divider' || item == '|'"></div>
     </template>
 
-  </div>
+</div>
 </template>
 
 <script>
