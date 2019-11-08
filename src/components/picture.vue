@@ -1,13 +1,23 @@
 
 <style module>
-  .wrap {
-    width: 500px;
-    position: relative;
-    top: 50%;
-    background: #fff;
-    margin: 0 auto;
-    transform: translateY(-60%);
-  }
+
+    @media all and (max-width: 500px) {
+        .wrap {
+            width:100%;
+        }
+    }
+    @media all and (min-width:500px) {
+        .wrap {
+            width: 500px;
+        }
+    }
+    .wrap {
+        position: relative;
+        top: 50%;
+        background: #fff;
+        margin: 0 auto;
+        transform: translateY(-60%);
+    }
 </style>
 
 <template>
