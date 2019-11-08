@@ -34,6 +34,19 @@
       background: transparent;
       color: rgba(0,0,0,.6);
     }
+
+    // @media all and (min-width:768px) {
+    //     div.ve-mobile {
+    //         display: none;
+    //     }
+    // }
+
+    @media all and (max-width:768px) {
+        div.ve-desktop {
+            display: none;
+        }    
+    }
+    
   }
   .font-select {
     width: 100px;
@@ -54,18 +67,25 @@
       <div v-if="item in btns" 
         @click.stop.prevent="btnHandler($event, item)" 
         :title="lang[item].title"
-        :class="{'ve-active': states[item].status == 'actived', 've-disabled': states[item].status == 'disabled'}" 
+        :class="{
+            've-active': states[item].status == 'actived',
+            've-disabled': states[item].status == 'disabled',
+            've-desktop' : btns[item].mobileDisplay == false
+            }" 
         unselectable="on">
         <i :class="[btns[item].className]"></i>
       </div>
       <div v-if="item in selects" 
         @click.stop.prevent="selectHandler($event, item)" 
-        :class="[{'ve-disabled': states[item].status == 'disabled'}, selects[item].className, 've-select']" 
+        :class="[{'ve-disabled': states[item].status == 'disabled'},
+            selects[item].className,
+            've-select']" 
         unselectable="on">
         <span>{{states[item].value}}</span><i :class="{'ve-triangle-down': !states[item].display, 've-triangle-up': states[item].display}"></i>
       </div>
       <div class="ve-divider" v-if="item == 'divider' || item == '|'"></div>
     </template>
+
   </div>
 </template>
 
