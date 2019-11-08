@@ -1,64 +1,58 @@
 
 <style lang="less" rel="stylesheet/less">
-  .ve-toolbar {
-    display: table;
-    width: 100%;
-    font-size: 0;
-    letter-spacing: -4px;
-    background: #fff;
-    border-bottom: 1px solid #ddd;
-    user-select: none;
-    div {
-      cursor: pointer;
-      position: relative;
-      display: inline-block;
-      padding: 10px 12px;
-      color: rgba(0, 0, 0, 0.6);
-    }
-    div.ve-divider {
-      width: 0;
-      height: 26px;
-      margin: 5px;
-      padding: 0;
-      border-right: 1px solid #ddd;
-      vertical-align: top;
-    }
-    div.ve-active {
-      background: #eee;
-      color: #000;
-    }
-    div:hover {
-      background: #eee;
-    }
-    div.ve-disabled {
-      background: transparent;
-      color: rgba(0,0,0,.6);
-    }
+    .ve-toolbar {
+        display: table;
+        width: 100%;
+        font-size: 0;
+        letter-spacing: -4px;
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+        user-select: none;
+        div {
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+            padding: 10px 12px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+        div.ve-divider {
+            width: 0;
+            height: 26px;
+            margin: 5px;
+            padding: 0;
+            border-right: 1px solid #ddd;
+            vertical-align: top;
+        }
+        div.ve-active {
+            background: #eee;
+            color: #000;
+        }
+        div:hover {
+            background: #eee;
+        }
+        div.ve-disabled {
+            background: transparent;
+            color: rgba(0,0,0,.6);
+        }
 
-    // @media all and (min-width:768px) {
-    //     div.ve-mobile {
-    //         display: none;
-    //     }
-    // }
-
-    @media all and (max-width:768px) {
-        div.ve-desktop {
-            display: none;
-        }    
+        @media all and (max-width:768px) {
+            div.ve-desktop {
+                display: none;
+            }    
+        }
+        
     }
-    
-  }
-  .font-select {
-    width: 100px;
-    span {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+    .font-select {
+        width: 100px;
+        span {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
     }
-  }
-  .code-select {
-    width: 80px;
-  }
+    .code-select {
+        width: 80px;
+    }
 </style>
 
 <template>
