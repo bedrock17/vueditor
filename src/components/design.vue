@@ -1,9 +1,11 @@
 
 <template>
   <div class="ve-design" v-show="view === 'design'">
-    <iframe src="about:blank" frameborder="0" @load="init"></iframe>
+    <iframe ref="editorframe" src="about:blank" frameborder="0" @load="init"></iframe>
+
+    <!-- <div class="ve-editframe" ref="divFrame" @load="init"></div> -->
   </div>
-</template>
+</template> 
 
 <script>
   import { mapActions, mapState } from 'vuex'
@@ -49,17 +51,43 @@
         this.exec(data.name, data.value)
       }
     },
-
     methods: Object.assign({}, mapActions([
       'updateContent',
       'updateButtonStates',
       'updatePopupDisplay',
       'callMethod'
     ]), {
+        
       init (event) {
+        // console.log("event!")
         this.iframeWin = event.target.contentWindow
         this.iframeDoc = this.iframeWin.document
         this.iframeBody = this.iframeWin.document.body
+
+        // height = 0;
+        let height = 0
+        const sendPostMessage = () => {
+            if (height !== this.iframeWin.document.body.offsetHeight) {
+                // console.log(height, this.iframeWin.document.body.clientHeight, this.iframeWin.document.body.offsetHeight)
+                // height = this.iframeWin.document.body.clientHeight
+                height = this.iframeWin.document.body.offsetHeight
+                this.iframeWin.parent.postMessage({
+                    frameHeight: height
+                }, '*')
+                // console.log(height) // check the message is being sent correctly
+            }
+        }
+
+        this.iframeWin.sendPost = () => sendPostMessage()
+
+        window.onmessage = (e) => {
+            if (e.data.hasOwnProperty("frameHeight")) {
+                this.$refs.editorframe.style.height = `${e.data.frameHeight}px`;
+            }
+        };
+
+        this.iframeWin.sendPost()
+
         this.inited = true
         if (this.cache) {
           this.iframeBody.innerHTML !== this.cache && (this.iframeBody.innerHTML = this.cache)
@@ -67,9 +95,10 @@
         }
         this.iframeDoc.designMode = 'on'
         this.iframeBody.spellcheck = getConfig('spellcheck')
-        this.iframeBody.style.cssText = 'overflow-x: hidden; margin: 0' //iframe body
-        this.iframeDoc.head.insertAdjacentHTML('beforeEnd', '<style>pre {margin: 0; padding: 0.5rem; background: #f5f2f0;}</style>')
+        this.iframeDoc.style = "height: max-content"
+        this.iframeBody.style.cssText = 'overflow-x: hidden; margin: 0; display:block;' //iframe body
         this.addEvent()
+        this.iframeDoc.head.insertAdjacentHTML('beforeEnd', '<style>pre {margin: 0; padding: 0.5rem; background: #f5f2f0;}</style>')
       },
 
       // init, selection change
@@ -103,6 +132,7 @@
       },
 
       keydownHandler (event) {
+        this.iframeWin.sendPost()
         //ctrl y, z
         if (event.ctrlKey && (event.keyCode === 89 || event.keyCode === 90)) {
 
@@ -155,6 +185,7 @@
       keyupHandler (event) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
+          this.iframeWin.sendPost()
           this.updateContent(this.iframeBody.innerHTML)
         }, 500)
       },
