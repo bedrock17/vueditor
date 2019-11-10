@@ -67,14 +67,14 @@
         // height = 0;
         let height = 0
         const sendPostMessage = () => {
-            if (height !== this.iframeWin.document.body.offsetHeight) {
+            if (height !== this.iframeWin.document.body.offsetHeight + 30) {
                 // console.log(height, this.iframeWin.document.body.clientHeight, this.iframeWin.document.body.offsetHeight)
                 // height = this.iframeWin.document.body.clientHeight
-                height = this.iframeWin.document.body.offsetHeight
+                height = this.iframeWin.document.body.offsetHeight + 30
                 this.iframeWin.parent.postMessage({
                     frameHeight: height
                 }, '*')
-                // console.log(height) // check the message is being sent correctly
+                // console.log("send !", height) // check the message is being sent correctly
             }
         }
 
@@ -95,8 +95,7 @@
         }
         this.iframeDoc.designMode = 'on'
         this.iframeBody.spellcheck = getConfig('spellcheck')
-        this.iframeDoc.style = "height: max-content"
-        this.iframeBody.style.cssText = 'overflow-x: hidden; margin: 0; display:block;' //iframe body
+        this.iframeBody.style.cssText = 'overflow-x: hidden; margin: 0; display:block; height: max-content;' //iframe body
         this.addEvent()
         this.iframeDoc.head.insertAdjacentHTML('beforeEnd', '<style>pre {margin: 0; padding: 0.5rem; background: #f5f2f0;}</style>')
       },
@@ -125,13 +124,17 @@
           // dispatch selectionchange event for throttling
           this.iframeDoc.dispatchEvent(new window.Event('selectionchange'))
         }, false)
+        this.iframeBody.addEventListener('DOMSubtreeModified', this.SubtreeModifiedHandler, false)
         this.iframeBody.addEventListener('keydown', this.keydownHandler, false)
         this.iframeBody.addEventListener('keyup', this.keyupHandler, false)
         this.iframeBody.addEventListener('paste', this.pasteHandler, false)
         this.selectionChange()
       },
-
+      SubtreeModifiedHandler (event) {
+        this.iframeWin.sendPost()
+      },
       keydownHandler (event) {
+        
         this.iframeWin.sendPost()
         //ctrl y, z
         if (event.ctrlKey && (event.keyCode === 89 || event.keyCode === 90)) {
@@ -183,9 +186,9 @@
       },
 
       keyupHandler (event) {
+        // this.iframeWin.sendPost()
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
-          this.iframeWin.sendPost()
           this.updateContent(this.iframeBody.innerHTML)
         }, 500)
       },
