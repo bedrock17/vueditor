@@ -64,7 +64,7 @@
         let arr = []
         this.config.fontName.forEach(item => {
           arr.push(item.val)
-        });
+        })
         return arr
       },
       getFont () {
@@ -75,7 +75,25 @@
         this.$store.dispatch('execCommand', {name: 'fontName', value: val + ', sans-serif'})
         this.$store.dispatch('updateSelectValue', {name: 'fontName', value: val})
         this.$store.dispatch('updatePopupDisplay')
+      },
+
+      //font-size
+      getFontSizes() {
+        let arr = []
+        this.config.fontSize.forEach(item => {
+          arr.push(item)
+        })
+        return arr
+      },
+      getFontSize () {
+        return this.$store.state.toolbar.fontSize.value
+      },
+      setFontSize (size) {
+        this.$store.dispatch('execCommand', {name: 'fontSize', value: size})
+        this.$store.dispatch('updateSelectValue', {name: 'fontSize', value: size})
+        this.$store.dispatch('updatePopupDisplay')
       }
+
     }
   }
 </script>
