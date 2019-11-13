@@ -57,6 +57,24 @@
       },
       getContent () {
         return this.$store.state.content
+      },
+
+      //font
+      getFonts () {
+        let arr = []
+        this.config.fontName.forEach(item => {
+          arr.push(item.val)
+        });
+        return arr
+      },
+      getFont () {
+        return this.$store.state.toolbar.fontName.value
+      },
+      setFont (font) { //string 
+        let val = font
+        this.$store.dispatch('execCommand', {name: 'fontName', value: val + ', sans-serif'})
+        this.$store.dispatch('updateSelectValue', {name: 'fontName', value: val})
+        this.$store.dispatch('updatePopupDisplay')
       }
     }
   }

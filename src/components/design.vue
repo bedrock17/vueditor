@@ -59,22 +59,17 @@
     ]), {
         
       init (event) {
-        // console.log("event!")
         this.iframeWin = event.target.contentWindow
         this.iframeDoc = this.iframeWin.document
         this.iframeBody = this.iframeWin.document.body
 
-        // height = 0;
         let height = 0
         const sendPostMessage = () => {
             if (height !== this.iframeWin.document.body.offsetHeight + 30) {
-                // console.log(height, this.iframeWin.document.body.clientHeight, this.iframeWin.document.body.offsetHeight)
-                // height = this.iframeWin.document.body.clientHeight
                 height = this.iframeWin.document.body.offsetHeight + 30
                 this.iframeWin.parent.postMessage({
                     frameHeight: height
                 }, '*')
-                // console.log("send !", height) // check the message is being sent correctly
             }
         }
 
@@ -116,6 +111,7 @@
       addEvent () {
         let timer = null
         this.iframeDoc.addEventListener('click', () => {
+          
           // throttle
           clearTimeout(timer)
           timer = setTimeout(() => {
@@ -168,7 +164,6 @@
             {
               event.preventDefault() //clipboard이미지 복사는 이곳에서만 처리되도록 한다.
 
-              // console.log(clipboardData[idx].type)
               { 
                 let file = clipboardData[idx].getAsFile()
                   let reader = new FileReader();
@@ -186,7 +181,6 @@
       },
 
       keyupHandler (event) {
-        // this.iframeWin.sendPost()
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           this.updateContent(this.iframeBody.innerHTML)
@@ -284,7 +278,7 @@
             container.nodeType === 3 && (container = container.parentNode)
             container.tagName.toLowerCase() === 'span' && (container = container.parentNode)
             Array.prototype.forEach.call(container.getElementsByTagName('span'), function (span) {
-              if (span.style.fontSize.trim() === '-webkit-xxx-large' || span.style.fontSize.trim() === 'xx-large') {
+              if (span.style.fontSize.trim() === '-webkit-xxx-large' || span.style.fontSize.trim() === 'xx-large' || span.style.fontSize.trim() === 'xxx-large') {
                 span.style.fontSize = value
               }
               span.normalize()

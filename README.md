@@ -191,25 +191,32 @@ Default value of the above fields:
 };
 ```
 
+## Component controll interface
+
+### Font
+```javascript
+editor.getFonts() // return : Font name string array available
+eidtor.getFont() // return : Font name string currently selected
+eidtor.setFont(fontname) // Select font
+```
+### Color
+TODO
+### Fontsize
+TODO
+### Image
+TODO
+### Link
+TODO
+### Table
+TODO
+
 ## Change log
 
 See [change log](./docs/changelog.md)
 
 ## Bug confirmed
 
-## TODO
-
-- [x] Markdown support
-- [x] Full screen and fixed toolbar features
-- [x] Popup menu position auto adjust
-- [ ] Advanced table options
-- [ ] Code highlight
-- [ ] Plugin support
-- [ ] XSS prevention
-- [ ] Test
 
 ## License
-
 [MIT](http://opensource.org/licenses/MIT)
-
 Copyright (c) 2016 hifarer
