@@ -117,6 +117,30 @@
       },
       setBackColorCode (color) {
         this.$store.dispatch('backColor', {name: type, value: color})
+      },
+
+      //table
+      createTable(rows, cols) {
+        let html = ((rows, cols) => {
+          let oTable = document.createElement('table')
+          let oTbody = document.createElement('tbody')
+          oTable.style.cssText = 'border-collapse: collapse;'
+          oTable.appendChild(oTbody)
+          for (let i = 0; i < rows; i++) {
+            let tr = document.createElement('tr')
+            for (let j = 0; j < cols; j++) {
+              let td = document.createElement('td')
+              td.innerHTML = '<br>'
+              td.style.cssText = 'width: 50px; border: 1px #ddd solid;'
+              tr.appendChild(td)
+            }
+            oTbody.appendChild(tr)
+          }
+          return oTable.outerHTML
+        })(rows, cols)
+
+        this.$store.dispatch('execCommand', { name: 'insertHTML', value: html })
+        this.$store.dispatch('updatePopupDisplay')
       }
 
 

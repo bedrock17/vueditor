@@ -195,33 +195,37 @@ Default value of the above fields:
 
 ### Font
 ```javascript
-
 editor.getFontList() // return : Font name string array available
 editor.getFont() // return : Font name string currently selected
 editor.setFont(fontname) // Select font
-
+```
+### Color
+```javascript
+editor.setFrontColorCode(colorCode)
+editor.setBackColorCode(colorCode)
+```
+### Fontsize
+```javascript
 editor.getFontSizeList() // return : Fontsize string array available
 editor.getFontSize() // return : Fontsize string currently selected
 editor.setFontSize(size) // Select fontsize
-
+```
+### Code
+```javascript
 editor.getCodeTypeList() // return : Code type string array available
 editor.getCodeType() // return : Code type string currently selected
 editor.setCodeType(codeType) // Select code type
-
-editor.setFrontColorCode(colorCode)
-editor.setBackColorCode(colorCode)
-
 ```
-### Color
-TODO
-### Fontsize
-TODO
+
 ### Image
 TODO
 ### Link
 TODO
+
 ### Table
-TODO
+```javascript
+editor.createTable(row, col)
+```
 
 ## Change log
 
