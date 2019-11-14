@@ -60,7 +60,6 @@
         this.$store.dispatch('updatePopupDisplay')
       },
       createTable (rows, cols) {
-        console.log(rows, cols)
         let oTable = document.createElement('table')
         let oTbody = document.createElement('tbody')
         oTable.style.cssText = 'border-collapse: collapse;'
