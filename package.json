@@ -1,6 +1,6 @@
 {
   "name": "vueditor_custom",
-  "version": "0.4.0-test.10",
+  "version": "0.4.0-test.11",
   "description": "a wysiwyg editor based on Vue.js and Vuex",
   "repository": {
     "type": "git",
