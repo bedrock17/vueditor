@@ -109,7 +109,16 @@
         this.$store.dispatch('execCommand', {name: 'insertHTML', value: this.tpl.replace(/#type#/igm, type)})
         this.$store.dispatch('updateSelectValue', {name: 'code', value: type})
         this.$store.dispatch('updatePopupDisplay')
+      },
+
+      //color
+      setFrontColorCode (color) {
+        this.$store.dispatch('foreColor', {name: type, value: color})
+      },
+      setBackColorCode (color) {
+        this.$store.dispatch('backColor', {name: type, value: color})
       }
+
 
     }
   }

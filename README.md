@@ -195,9 +195,22 @@ Default value of the above fields:
 
 ### Font
 ```javascript
-editor.getFonts() // return : Font name string array available
-eidtor.getFont() // return : Font name string currently selected
-eidtor.setFont(fontname) // Select font
+
+editor.getFontList() // return : Font name string array available
+editor.getFont() // return : Font name string currently selected
+editor.setFont(fontname) // Select font
+
+editor.getFontSizeList() // return : Fontsize string array available
+editor.getFontSize() // return : Fontsize string currently selected
+editor.setFontSize(size) // Select fontsize
+
+editor.getCodeTypeList() // return : Code type string array available
+editor.getCodeType() // return : Code type string currently selected
+editor.setCodeType(codeType) // Select code type
+
+editor.setFrontColorCode(colorCode)
+editor.setBackColorCode(colorCode)
+
 ```
 ### Color
 TODO
