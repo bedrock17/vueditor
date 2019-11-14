@@ -60,7 +60,7 @@
       },
 
       //font
-      getFonts () {
+      getFontList () {
         let arr = []
         this.config.fontName.forEach(item => {
           arr.push(item.val)
@@ -78,7 +78,7 @@
       },
 
       //font-size
-      getFontSizes() {
+      getFontSizeList() {
         let arr = []
         this.config.fontSize.forEach(item => {
           arr.push(item)
@@ -91,6 +91,23 @@
       setFontSize (size) {
         this.$store.dispatch('execCommand', {name: 'fontSize', value: size})
         this.$store.dispatch('updateSelectValue', {name: 'fontSize', value: size})
+        this.$store.dispatch('updatePopupDisplay')
+      },
+
+      //code
+      getCodeTypeList () {
+        let arr = []
+        this.config.code.forEach(item => {
+          arr.push(item)
+        })
+        return arr
+      },
+      getCodeType () {
+        return this.state.toolbar.code.value
+      },
+      setCodeType (type) {
+        this.$store.dispatch('execCommand', {name: 'insertHTML', value: this.tpl.replace(/#type#/igm, type)})
+        this.$store.dispatch('updateSelectValue', {name: 'code', value: type})
         this.$store.dispatch('updatePopupDisplay')
       }
 
