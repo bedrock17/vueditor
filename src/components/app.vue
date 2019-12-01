@@ -113,10 +113,10 @@
 
       //color
       setFrontColorCode (color) {
-        this.$store.dispatch('foreColor', {name: type, value: color})
+        this.$store.dispatch('execCommand', {name: 'foreColor', value: color})
       },
       setBackColorCode (color) {
-        this.$store.dispatch('backColor', {name: type, value: color})
+        this.$store.dispatch('execCommand', {name: 'backColor', value: color})
       },
 
       //table
