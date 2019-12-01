@@ -217,6 +217,13 @@ editor.getCodeType() // return : Code type string currently selected
 editor.setCodeType(codeType) // Select code type
 ```
 
+### Tag
+```javascript
+editor.getTagList()
+editor.getTag()
+editor.setTag(tag)
+```
+
 ### Image
 TODO
 ### Link

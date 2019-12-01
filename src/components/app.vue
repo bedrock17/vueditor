@@ -141,7 +141,20 @@
 
         this.$store.dispatch('execCommand', { name: 'insertHTML', value: html })
         this.$store.dispatch('updatePopupDisplay')
-      }
+      },
+
+      //Tag
+      getTagList () {
+        return ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+      },
+      getTag () {
+        return this.$store.state.toolbar.element.value
+      },
+      setTag (tagName) { //string
+        this.$store.dispatch('execCommand', {name: 'formatBlock', value: tagName})
+        this.$store.dispatch('updateSelectValue', {name: 'element', value: tagName})
+        this.$store.dispatch('updatePopupDisplay')
+      },      
 
 
     }
